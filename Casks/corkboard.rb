@@ -9,7 +9,7 @@ cask "corkboard" do
       verified: "github.com/mattjurenka/corkboard/"
   name "corkboard"
   desc "Neovim with Claude Code agents beside it"
-  homepage "https://corkboard.fyi"
+  homepage "https://corkboard.fyi/"
 
   # github_releases leaves out pre-releases unless given a block, and so far
   # there are only rcs.
@@ -22,8 +22,8 @@ cask "corkboard" do
   end
 
   auto_updates true
-  depends_on macos: ">= :ventura"
   depends_on formula: ["ripgrep", "fd"]
+  depends_on macos: :ventura
 
   app "corkboard.app"
 
