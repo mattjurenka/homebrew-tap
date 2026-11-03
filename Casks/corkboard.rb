@@ -11,13 +11,18 @@ cask "corkboard" do
   desc "Neovim with Claude Code agents beside it"
   homepage "https://corkboard.fyi"
 
+  # github_releases leaves out pre-releases unless given a block, and so far
+  # there are only rcs.
   livecheck do
     url :url
-    strategy :github_releases
+    regex(/^v?(\d+(?:\.\d+)+(?:-rc\d+)?)$/i)
+    strategy :github_releases do |json, regex|
+      json.map { |release| release["tag_name"]&.[](regex, 1) }
+    end
   end
 
   auto_updates true
-  depends_on macos: ">= :monterey"
+  depends_on macos: ">= :ventura"
   depends_on formula: ["ripgrep", "fd"]
 
   app "corkboard.app"
