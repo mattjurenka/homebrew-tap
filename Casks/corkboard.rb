@@ -1,12 +1,13 @@
 cask "corkboard" do
   arch arm: "arm64", intel: "x64"
 
-  version "0.1.0-rc6"
-  sha256 arm:   "9ba9a59f2bcca13c2281b5f7ab7839f34c739810a6ab18af5c96694ad613c552",
-         intel: "e6659f925796dbffca367523ec9ac11da032b0a90f599c4c746e9cda6a58ac3a"
+  version "0.1.0-rc8"
+  sha256 arm:   "4e527e84a22b2be3d5598d6f6fe7820414aee1a85b9797e591a8b0c12162200d",
+         intel: "bdfb8f924c5bdc3762dfa0911554ed4cdaa337d3c700b49b886e6c271a921a00"
 
-  url "https://github.com/mattjurenka/corkboard/releases/download/v#{version}/corkboard-#{version}-mac-#{arch}.dmg",
-      verified: "github.com/mattjurenka/corkboard/"
+  # Through corkboard.fyi, which counts the download and sends it on to the
+  # GitHub release.
+  url "https://corkboard.fyi/d/corkboard-#{version}-mac-#{arch}.dmg?r=brew"
   name "corkboard"
   desc "Neovim with Claude Code agents beside it"
   homepage "https://corkboard.fyi/"
@@ -14,7 +15,7 @@ cask "corkboard" do
   # github_releases leaves out pre-releases unless given a block, and so far
   # there are only rcs.
   livecheck do
-    url :url
+    url "https://github.com/mattjurenka/corkboard"
     regex(/^v?(\d+(?:\.\d+)+(?:-rc\d+)?)$/i)
     strategy :github_releases do |json, regex|
       json.map { |release| release["tag_name"]&.[](regex, 1) }
